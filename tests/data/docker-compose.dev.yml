@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - buildno=1
+    ports:
+      - 8765:8765
+    volumes:
+      - .:/code
+    labels:
+      mesos.deploy.env.APP_ENV: 'dev'
+      mesos.host.attributes.role: 'dev'
+      mesos.singularity.endpoint: 'http://localhost:7099/singularity/api'
+
+  db:
+    command: '-d'
+    ports:
+      - 5432:5432
+
+  cache:
+    ports:
+      - 6379:6379

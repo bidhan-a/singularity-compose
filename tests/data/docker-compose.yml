@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  api:
+    container_name: 'example-service'
+    hostname: ''
+    command: ''
+    image: example/my_web_app:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 1024M
+        reservations:
+          cpus: '0.1'
+          memory: 1024M
+    network_mode: "host"
+    labels:
+      mesos.singularity.admin_email: 'admin@email.com'
+      mesos.singularity.endpoint: 'http://prd.net/singularity/api'
+      mesos.slave.placement: ''
+      mesos.cron.schedule: ''
+      mesos.docker.params.entrypoint: 'run_web_api.sh'
+      mesos.docker.forcepull: 'false'
+      mesos.docker.privileged: 'false'
+    entrypoint: run_web_api.sh
+
+  db:
+    image: postgres:latest
+
+  cache:
+    image: redis:latest
