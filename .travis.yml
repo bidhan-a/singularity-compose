@@ -14,5 +14,5 @@ deploy:
     secure: tw/Y9RONdetCf34lrdsdhfDw8l3ml6WttKvU6z66jc7o9kXcuwsT2cWTsd6fN7aXn/9sdODtebX549dZMhBCpIFLnp52kT8QUgA15rpit5Z+BnE8kFatsn/hP3BbAmKDKmf5qAMs+v5rQa0UOwnrzPhGbj0+eQpUi5gyYAMSp3mkEVCYKSaIsqxCM5XznxY5TZwRn9j/AnkJ1nckyas1K1vujE29g5ff/QrArhKCqZzQAzVD8VftOYHkp+XuqqlZKSGfgrORYafRLqCyVfitEXZRlmwFwjvVYwbfjIDhjdMYQslMyXhF92m0+LdQ6IvG5LSbl9n+NWe7gAMXVCQdNtzT1s1a0XZAWnl9+pe8XU3yhSfbPCp+NtudVybnUxCLpR5mFz/U1/iPuwFlIkHQIvSl5cJG/0edalh3xJbcotrMQHBbwpgYlQz9SfPanEXQi/7bKt+RNPhL0kOm2i9gYUqKlDFvbmlYfCKMLz5d1bdDggsfmuHKf1Xq6ffOGctQYffC/1qQyrU0JSxCbRIOoHgbSYj1zX9xwGbu+EeL4G3MSL0cvnh4e1Ubsb8bfnthxIdA78BarEQNFzURmbuhyvH5S2Xowxj4ta0TIOW87ScQLrprcjgsYA8zj/1gWXUQGNg/V4cnBs62I89xOTmdmVHCIPkMZdxAfqGoEEId9Yc=
   on:
     tags: true
-    repo: bidhan-a/singularity_compose
+    repo: bidhan-a/singularity-compose
     python: 3.6
