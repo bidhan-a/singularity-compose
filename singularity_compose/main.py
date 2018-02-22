@@ -12,17 +12,17 @@ from singularity_compose.config import Config
 def deploy():
     parser = argparse.ArgumentParser(description='Configuration options')
     parser.add_argument('-c', '--config', metavar='config', type=str,
-                        help='The base config file', required=True)
+                        help='The base compose file', required=True)
     parser.add_argument('-s', '--service', metavar='service', type=str,
-                        help='Service name in config file', required=True)
+                        help='Service name in the compose file', required=True)
     parser.add_argument('-o', '--override', metavar='override', type=str,
-                        help='The config file which will override the base file', required=False)
+                        help='The compose file which overrides the base file', required=False)
     args = parser.parse_args()
 
     try:
         config = Config(config_file=args.config, service_name=args.service, override_file=args.override)
     except IOError as e:
-        print('Config file could not be loaded')
+        print('Compose file could not be loaded')
         print(str(e))
         config = None
     except Exception as e:
