@@ -59,6 +59,10 @@ to pass different options to Singularity. The supported labels are given below:
 - ``mesos.docker.privileged``
 - ``mesos.deploy.env``
 - ``mesos.host.attributes``
+- ``mesos.resources.cpus``
+- ``mesos.resources.memory``
+- ``mesos.resources.disk``
+- ``mesos.resources.numports``
 
 **Note**: ``mesos.docker.params``, ``mesos.deploy.env``, and ``mesos.host.attributes`` are passed as objects.
 The following example demonstrates how you can add properties to the object:

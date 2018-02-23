@@ -78,7 +78,8 @@ def deploy():
                 "resources": {
                     "cpus": config.get('cpus', ''),
                     "memoryMb": config.get('memory', ''),
-                    "numPorts": 1
+                    "diskMb": config.get('disk', ''),
+                    "numPorts": config.get('num_ports', '') or 1
                 },
                 "skipHealthchecksOnDeploy": True
             }

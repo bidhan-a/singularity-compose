@@ -96,6 +96,12 @@ class Config(object):
             # Cron schedule
             self._data['cron_schedule'] = labels.get('mesos.cron.schedule', '')
 
+            # Resources
+            self._data['cpus'] = float(labels.get('mesos.resources.cpus', '0'))
+            self._data['memory'] = float(labels.get('mesos.resources.memory', '0'))
+            self._data['disk'] = float(labels.get('mesos.resources.disk', '0'))
+            self._data['num_ports'] = int(labels.get('mesos.resources.numports', '0'))
+
             # Docker
             forcepull = labels.get('mesos.docker.forcepull', 'false')
             privileged = labels.get('mesos.docker.privileged', 'false')
@@ -107,16 +113,6 @@ class Config(object):
 
             # Environment
             self._data['env'] = combine_props_to_dict(labels, 'mesos.deploy.env')
-
-        # Resources
-        deploy = self._data.get('deploy', None)
-        if deploy:
-            resources = deploy.get('resources', None)
-            if resources:
-                reservations = resources.get('reservations', None)
-                if reservations:
-                    self._data['cpus'] = float(reservations.get('cpus', ''))
-                    self._data['memory'] = int(reservations.get('memory', '').replace('M', ''))
 
         # Arguments
         build = self._data.get('build', None)

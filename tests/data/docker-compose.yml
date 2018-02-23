@@ -6,14 +6,6 @@ services:
     hostname: ''
     command: ''
     image: example/my_web_app:latest
-    deploy:
-      resources:
-        limits:
-          cpus: '0.1'
-          memory: 1024M
-        reservations:
-          cpus: '0.1'
-          memory: 1024M
     network_mode: "host"
     labels:
       mesos.singularity.admin_email: 'admin@email.com'
@@ -23,6 +15,8 @@ services:
       mesos.docker.params.entrypoint: 'run_web_api.sh'
       mesos.docker.forcepull: 'false'
       mesos.docker.privileged: 'false'
+      mesos.resources.cpus: '0.1'
+      mesos.resources.memory: '1024'
     entrypoint: run_web_api.sh
 
   db:
