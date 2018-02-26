@@ -22,6 +22,15 @@ def test_config(response):
 
     assert config.container_name == 'example-service'
     assert config.image == 'example/my_web_app:latest'
+    assert config.force_pull_image is False
 
-    # TODO: Add more assertions
+    assert config.environment == {'APP_ENV': 'dev', 'EXTRA_ENV': 'extra'}
+    assert config.docker_params == {'entrypoint': 'run_web_api.sh'}
+    assert config.host_attributes == {'role': 'dev'}
+
+    assert config.cpus == 0.1
+    assert config.disk == 0.0
+    assert config.memory == 1024.0
+    assert config.num_ports == 0
+
 

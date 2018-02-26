@@ -52,33 +52,31 @@ to pass different options to Singularity. The supported labels are given below:
 
 - ``mesos.singularity.admin_email``
 - ``mesos.singularity.endpoint``
-- ``mesos.slave.placement``
-- ``mesos.cron.schedule``
-- ``mesos.docker.params``
-- ``mesos.docker.forcepull``
-- ``mesos.docker.privileged``
-- ``mesos.deploy.env``
-- ``mesos.host.attributes``
-- ``mesos.resources.cpus``
-- ``mesos.resources.memory``
-- ``mesos.resources.disk``
-- ``mesos.resources.numports``
+- ``mesos.singularity.slave.placement``
+- ``mesos.singularity.cron.schedule``
+- ``mesos.singularity.docker.params``
+- ``mesos.singularity.docker.forcepull``
+- ``mesos.singularity.host.attributes``
+- ``mesos.singularity.resources.cpus``
+- ``mesos.singularity.resources.memory``
+- ``mesos.singularity.resources.disk``
+- ``mesos.singularity.resources.numports``
 
-**Note**: ``mesos.docker.params``, ``mesos.deploy.env``, and ``mesos.host.attributes`` are passed as objects.
+**Note**: ``mesos.singularity.docker.params`` and ``mesos.singularity.host.attributes`` are passed as objects.
 The following example demonstrates how you can add properties to the object:
 
 .. code-block:: python
 
-   mesos.deploy.env.APP_ENV = 'dev'
-   mesos.deploy.env.EXTRA_ENV = 'extra'
+   mesos.singularity.host.attributes.role = 'dev'
+   mesos.singularity.host.attributes.other = 'extra'
 
 This will create the following object:
 
 .. code-block:: python
 
    {
-       "APP_ENV": "dev",
-       "EXTRA_ENV": "extra"
+       "role": "dev",
+       "other": "extra"
    }
 
 Refer to the docs on SingularityDeployRequest_ to learn more about the options.

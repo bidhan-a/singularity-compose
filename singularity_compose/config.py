@@ -1,5 +1,6 @@
 import re
 import yaml
+import pprint
 
 
 def merge_dicts(source, destination):
@@ -88,31 +89,25 @@ class Config(object):
             self._data["singularity_endpoint"] = labels.get('mesos.singularity.endpoint', '')
 
             # Host attributes
-            self._data["host_attributes"] = combine_props_to_dict(labels, 'mesos.host.attributes')
+            self._data["host_attributes"] = combine_props_to_dict(labels, 'mesos.singularity.host.attributes')
 
             # Slave placement
-            self._data['slave_placement'] = labels.get('mesos.slave.placement', '')
+            self._data['slave_placement'] = labels.get('mesos.singularity.slave.placement', '')
 
             # Cron schedule
-            self._data['cron_schedule'] = labels.get('mesos.cron.schedule', '')
+            self._data['cron_schedule'] = labels.get('mesos.singularity.cron.schedule', '')
 
             # Resources
-            self._data['cpus'] = float(labels.get('mesos.resources.cpus', '0'))
-            self._data['memory'] = float(labels.get('mesos.resources.memory', '0'))
-            self._data['disk'] = float(labels.get('mesos.resources.disk', '0'))
-            self._data['num_ports'] = int(labels.get('mesos.resources.numports', '0'))
+            self._data['cpus'] = float(labels.get('mesos.singularity.resources.cpus', '0'))
+            self._data['memory'] = float(labels.get('mesos.singularity.resources.memory', '0'))
+            self._data['disk'] = float(labels.get('mesos.singularity.resources.disk', '0'))
+            self._data['num_ports'] = int(labels.get('mesos.singularity.resources.numports', '0'))
 
             # Docker
-            forcepull = labels.get('mesos.docker.forcepull', 'false')
-            privileged = labels.get('mesos.docker.privileged', 'false')
-
+            forcepull = labels.get('mesos.singularity.docker.forcepull', 'false')
             self._data['force_pull_image'] = True if forcepull == 'true' else False
-            self._data['privileged'] = True if privileged == 'true' else False
 
-            self._data['docker_params'] = combine_props_to_dict(labels, 'mesos.docker.params')
-
-            # Environment
-            self._data['env'] = combine_props_to_dict(labels, 'mesos.deploy.env')
+            self._data['docker_params'] = combine_props_to_dict(labels, 'mesos.singularity.docker.params')
 
         # Arguments
         build = self._data.get('build', None)
@@ -126,6 +121,9 @@ class Config(object):
 
     def __getattr__(self, key):
         return self.__getitem__(key)
+
+    def __str__(self):
+        return pprint.pformat(self._data, indent=4, depth=2)
 
     def get(self, key, default=None):
         return self._data.get(key, default)

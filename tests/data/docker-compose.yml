@@ -10,13 +10,12 @@ services:
     labels:
       mesos.singularity.admin_email: 'admin@email.com'
       mesos.singularity.endpoint: 'http://prd.net/singularity/api'
-      mesos.slave.placement: ''
-      mesos.cron.schedule: ''
-      mesos.docker.params.entrypoint: 'run_web_api.sh'
-      mesos.docker.forcepull: 'false'
-      mesos.docker.privileged: 'false'
-      mesos.resources.cpus: '0.1'
-      mesos.resources.memory: '1024'
+      mesos.singularity.slave.placement: ''
+      mesos.singularity.cron.schedule: ''
+      mesos.singularity.docker.params.entrypoint: 'run_web_api.sh'
+      mesos.singularity.docker.forcepull: 'false'
+      mesos.singularity.resources.cpus: '0.1'
+      mesos.singularity.resources.memory: '1024'
     entrypoint: run_web_api.sh
 
   db:

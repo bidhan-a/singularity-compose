@@ -7,6 +7,7 @@ import requests
 import time
 from six import moves
 from singularity_compose.config import Config
+import pprint
 
 
 def deploy():
@@ -74,7 +75,7 @@ def deploy():
                     }
                 },
                 "hostname": config["container_name"],
-                "env": config["env"],
+                "env": config.get('environment', {}),
                 "resources": {
                     "cpus": config.get('cpus', ''),
                     "memoryMb": config.get('memory', ''),
@@ -85,7 +86,9 @@ def deploy():
             }
         }
 
-        yn = moves.input("Are you sure, you want to deploy '{}' ? ".format(config["container_name"]))
+        pprint.pprint(request_body, indent=4)
+        pprint.pprint(deploy_body, indent=4)
+        yn = moves.input("Are you sure, you want to deploy '{}' (y/n)? ".format(config["container_name"]))
         yn = yn.lower()
         if yn not in ['yes', 'y']:
             return
