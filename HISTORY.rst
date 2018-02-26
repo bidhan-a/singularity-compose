@@ -12,3 +12,7 @@ History
 
 * Include resources in labels
 
+0.1.2 (2018-02-26)
+------------------
+
+* Change labels format
