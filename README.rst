@@ -38,6 +38,7 @@ singularity-compose supports three arguments:
 - ``-c`` or ``--config`` : The name of the base compose file
 - ``-s`` or ``--service`` : The name of the service to be deployed
 - ``-o`` or ``--override``: The name of the compose file which overrides the base file
+- ``-f`` or ``--forcepull``: Flag to enforce image pull (overrides the configuration in the compose file)
 
 **Note**: You would use ``docker-compose`` with the above mentioned files as given below:
 
