@@ -16,3 +16,8 @@ History
 ------------------
 
 * Change labels format
+
+0.1.3 (2018-03-08)
+------------------
+
+* Add flag to enforce image pull
