@@ -17,10 +17,15 @@ def deploy():
                         help='Service name in the compose file', required=True)
     parser.add_argument('-o', '--override', metavar='override', type=str,
                         help='The compose file which overrides the base file', required=False)
+    parser.add_argument('-f', '--forcepull', metavar='forcepull', type=str,
+                        help='Flag to enforce image pull', required=False)
     args = parser.parse_args()
 
     try:
-        config = Config(config_file=args.config, service_name=args.service, override_file=args.override)
+        config = Config(config_file=args.config,
+                        service_name=args.service,
+                        override_file=args.override,
+                        force_pull=args.forcepull)
     except IOError as e:
         print('Compose file could not be loaded')
         print(str(e))

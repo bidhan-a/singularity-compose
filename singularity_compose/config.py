@@ -25,7 +25,7 @@ def combine_props_to_dict(parent_dict, pattern):
 
 class Config(object):
 
-    def __init__(self, config_file, service_name, override_file=None):
+    def __init__(self, config_file, service_name, override_file=None, force_pull=None):
         self._data = None
 
         with open(config_file) as config:
@@ -104,7 +104,10 @@ class Config(object):
             self._data['num_ports'] = int(labels.get('mesos.singularity.resources.numports', '0'))
 
             # Docker
-            forcepull = labels.get('mesos.singularity.docker.forcepull', 'false')
+            if force_pull and force_pull in ['true', 'false']:
+                forcepull = force_pull
+            else:
+                forcepull = labels.get('mesos.singularity.docker.forcepull', 'false')
             self._data['force_pull_image'] = True if forcepull == 'true' else False
 
             self._data['docker_params'] = combine_props_to_dict(labels, 'mesos.singularity.docker.params')
