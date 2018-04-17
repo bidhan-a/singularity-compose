@@ -64,7 +64,7 @@ def deploy():
             "deploy": {
                 "requestId": config['container_name'],
                 "id": deploy_id,
-                "command": config.get('command', None),
+                "command": config.get('entrypoint', None),  # set command equal to entrypoint
                 "arguments": config.get("arguments", []),
                 "containerInfo": {
                     "type": "DOCKER",

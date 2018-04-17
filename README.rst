@@ -33,7 +33,7 @@ Once you have it installed, you can use it from the command line
 
 ``$ singularity-compose -c docker-compose.yml -s api -o docker-compose.dev.yml``
 
-singularity-compose supports three arguments:
+singularity-compose supports four arguments:
 
 - ``-c`` or ``--config`` : The name of the base compose file
 - ``-s`` or ``--service`` : The name of the service to be deployed

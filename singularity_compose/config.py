@@ -112,10 +112,10 @@ class Config(object):
 
             self._data['docker_params'] = combine_props_to_dict(labels, 'mesos.singularity.docker.params')
 
-        # Arguments
-        build = self._data.get('build', None)
-        if build:
-            self._data['arguments'] = build.get('args', [])
+        # Arguments (split `command`)
+        command = self._data.get('command', None)
+        if command:
+            self._data['arguments'] = command.split(' ')
 
     def __getitem__(self, key):
         if key not in self._data:

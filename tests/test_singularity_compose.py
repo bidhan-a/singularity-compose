@@ -33,4 +33,6 @@ def test_config(response):
     assert config.memory == 1024.0
     assert config.num_ports == 0
 
+    assert config.arguments == ['buildno=1']
+
 

@@ -21,3 +21,8 @@ History
 ------------------
 
 * Add flag to enforce image pull
+
+0.1.4 (2018-04-17)
+------------------
+
+* Use different fields for command and arguments

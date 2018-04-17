@@ -5,8 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - buildno=1
+    command: 'buildno=1'
     ports:
       - 8765:8765
     volumes:
