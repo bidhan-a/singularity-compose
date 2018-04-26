@@ -25,7 +25,7 @@ def test_config(response):
     assert config.force_pull_image is False
 
     assert config.environment == {'APP_ENV': 'dev', 'EXTRA_ENV': 'extra'}
-    assert config.docker_params == {'entrypoint': 'run_web_api.sh'}
+    assert config.docker_params == {'entrypoint': 'run_web_api.sh', 'ulimit': 'nofile=10240:10240'}
     assert config.host_attributes == {'role': 'dev'}
 
     assert config.cpus == 0.1

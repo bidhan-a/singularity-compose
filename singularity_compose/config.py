@@ -81,36 +81,53 @@ class Config(object):
                             port_index += 1
         self._data["portMappings"] = port_mappings
 
-        # Extract data from labels
-        labels = self._data.get('labels', None)
-        if labels:
-            # Singularity data
-            self._data["singularity_email"] = labels.get('mesos.singularity.admin_email', '')
-            self._data["singularity_endpoint"] = labels.get('mesos.singularity.endpoint', '')
+        # Placement constraints
+        host_attributes = {}
+        try:
+            constraints = self._data['deploy']['placement']['constraints']
+            for c in constraints:
+                kv = c.split('==')
+                host_attributes[kv[0].strip()] = kv[1].strip()
+        except KeyError:
+            pass
+        self._data["host_attributes"] = host_attributes
 
-            # Host attributes
-            self._data["host_attributes"] = combine_props_to_dict(labels, 'mesos.singularity.host.attributes')
+        # Extract data from extension fields (previously labels were used)
 
+        # Singularity
+        singularity_data = config_obj.get('x-singularity', None)
+        if singularity_data:
+            self._data["singularity_email"] = singularity_data.get('admin_email', '')
+            self._data["singularity_endpoint"] = singularity_data.get('endpoint', '')
             # Slave placement
-            self._data['slave_placement'] = labels.get('mesos.singularity.slave.placement', '')
-
+            self._data['slave_placement'] = singularity_data.get('slave_placement', '')
             # Cron schedule
-            self._data['cron_schedule'] = labels.get('mesos.singularity.cron.schedule', '')
+            self._data['cron_schedule'] = singularity_data.get('cron_schedule', '')
 
-            # Resources
-            self._data['cpus'] = float(labels.get('mesos.singularity.resources.cpus', '0'))
-            self._data['memory'] = float(labels.get('mesos.singularity.resources.memory', '0'))
-            self._data['disk'] = float(labels.get('mesos.singularity.resources.disk', '0'))
-            self._data['num_ports'] = int(labels.get('mesos.singularity.resources.numports', '0'))
+        # Marathon
+        marathon_data = config_obj.get('x-marathon', None)
+        if marathon_data:
+            self._data['marathon_fetch'] = marathon_data.get('fetch', {})
+            self._data['marathon_resource_roles'] = marathon_data.get('resource_roles', [])
 
-            # Docker
+        # Resources
+        resources_data = config_obj.get('x-resources', None)
+        if resources_data:
+            self._data['cpus'] = float(resources_data.get('cpus', '0'))
+            self._data['memory'] = float(resources_data.get('memory', '0'))
+            self._data['disk'] = float(resources_data.get('disk', '0'))
+            self._data['num_ports'] = int(resources_data.get('numports', '0'))
+
+        # Docker
+        docker_data = config_obj.get('x-docker', None)
+        if docker_data:
             if force_pull and force_pull in ['true', 'false']:
                 forcepull = force_pull
             else:
-                forcepull = labels.get('mesos.singularity.docker.forcepull', 'false')
-            self._data['force_pull_image'] = True if forcepull == 'true' else False
+                forcepull = docker_data.get('forcepull', 'false')
 
-            self._data['docker_params'] = combine_props_to_dict(labels, 'mesos.singularity.docker.params')
+            self._data['force_pull_image'] = True if forcepull == 'true' else False
+            self._data['docker_params'] = docker_data.get('params', {})
 
         # Arguments (split `command`)
         command = self._data.get('command', None)

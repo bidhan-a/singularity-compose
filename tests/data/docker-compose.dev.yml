@@ -1,10 +1,17 @@
-version: '3'
+version: '3.4'
+
+x-singularity:
+  endpoint: 'http://localhost:7099/singularity/api'
 
 services:
   api:
     build:
       context: .
       dockerfile: Dockerfile
+    deploy:
+      placement:
+        constraints:
+          - role == dev
     command: 'buildno=1'
     ports:
       - 8765:8765
@@ -15,14 +22,15 @@ services:
       EXTRA_ENV: 'extra'
     privileged: false
     labels:
-      mesos.singularity.host.attributes.role: 'dev'
       mesos.singularity.endpoint: 'http://localhost:7099/singularity/api'
 
   db:
+    image: postgres:latest
     command: '-d'
     ports:
       - 5432:5432
 
   cache:
+    image: redis:latest
     ports:
       - 6379:6379
