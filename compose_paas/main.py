@@ -2,9 +2,9 @@
 
 """Main module."""
 import argparse
-from singularity_compose.config import Config
-from singularity_compose.platform.singularity import Singularity
-from singularity_compose.platform.marathon import Marathon
+from compose_paas.config import Config
+from compose_paas.platform.singularity import Singularity
+from compose_paas.platform.marathon import Marathon
 
 
 def deploy():

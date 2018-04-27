@@ -10,6 +10,7 @@ x-compose-paas:
     slave_placement: ''
     cron_schedule: ''
   marathon:
+    endpoint: 'http://prd.net/marathon/v2'
     fetch:
       uri: 'file:///etc/docker.tar.gz'
     resource_roles:

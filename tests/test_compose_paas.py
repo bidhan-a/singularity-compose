@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Tests for `singularity-compose` package."""
+"""Tests for `compose-paas` package."""
 import os
 import pytest
 
 
-from singularity_compose.config import Config
+from compose_paas.config import Config
 
 
 @pytest.fixture

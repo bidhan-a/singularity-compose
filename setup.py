@@ -32,21 +32,21 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
-    description="Deploy to Singularity with docker-compose files",
+    description="Deploy to multiple container platforms/PAAS using docker-compose files",
     entry_points={
-      'console_scripts': ['singularity-compose=singularity_compose.main:deploy']
+      'console_scripts': ['compose-paas=compose_paas.main:deploy']
     },
     install_requires=requirements,
     license="BSD license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='singularity-compose',
-    name='singularity-compose',
-    packages=find_packages(include=['singularity_compose']),
+    keywords='compose-paas',
+    name='compose-paas',
+    packages=find_packages(include=['compose_paas']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/bidhan-a/singularity-compose',
+    url='https://github.com/bidhan-a/compose-paas',
     version='0.1.4',
     zip_safe=False,
 )
