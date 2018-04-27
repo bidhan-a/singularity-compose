@@ -42,7 +42,7 @@ setup(
     include_package_data=True,
     keywords='compose-paas',
     name='compose-paas',
-    packages=find_packages(include=['compose_paas']),
+    packages=find_packages(include=['compose_paas', 'compose_paas.platform']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
