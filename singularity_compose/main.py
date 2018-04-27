@@ -25,6 +25,7 @@ def deploy():
     try:
         config = Config(config_file=args.config,
                         service_name=args.service,
+                        platform=args.platform,
                         override_file=args.override,
                         force_pull=args.forcepull)
     except IOError as e:

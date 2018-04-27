@@ -18,7 +18,7 @@ def test_config(response):
     config_file = os.path.join(response, 'docker-compose.yml')
     override_file = os.path.join(response, 'docker-compose.dev.yml')
 
-    config = Config(config_file=config_file, service_name='api', override_file=override_file)
+    config = Config(config_file=config_file, platform='singularity', service_name='api', override_file=override_file)
 
     assert config.container_name == 'example-service'
     assert config.image == 'example/my_web_app:latest'

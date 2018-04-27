@@ -23,8 +23,6 @@ services:
       APP_ENV: 'dev'
       EXTRA_ENV: 'extra'
     privileged: false
-    labels:
-      mesos.singularity.endpoint: 'http://localhost:7099/singularity/api'
 
   db:
     image: postgres:latest

@@ -46,7 +46,7 @@ class Singularity:
                         "forcePullImage": self.config.get("force_pull_image", False),
                         "privileged": self.config.get("privileged", False),
                         "network": self.config["network_mode"],
-                        "portMappings": self.config["portMappings"],
+                        "portMappings": self.config["port_mappings"],
                         "image": self.config["image"],
                         "parameters": self.config.get("docker_params", {})
                     }
@@ -69,7 +69,7 @@ class Singularity:
         container_name = self.config["container_name"]
         deploy_id = str(int(time.time()))
 
-        yn = moves.input("Are you sure, you want to deploy '{}' (y/n)? ".format(container_name))
+        yn = moves.input("Are you sure, you want to deploy '{}' Singularity (y/n)? ".format(container_name))
         yn = yn.lower()
         if yn not in ['yes', 'y']:
             return False
@@ -78,22 +78,20 @@ class Singularity:
         request_body = self.create_request_body()
         print(json.dumps(request_body, indent=4))
 
-        # resp = requests.post(endpoint + '/requests', data=json.dumps(request_body),
-        #                      headers={'Content-Type': 'application/json'})
+        resp = requests.post(endpoint + '/requests', data=json.dumps(request_body),
+                             headers={'Content-Type': 'application/json'})
 
-        if True:
+        if resp and resp.status_code == 200:
             status_code = 400
             print("Deploying '{}'..".format(deploy_id))
             deploy_body = self.create_deploy_body()
             deploy_body['deploy']['id'] = deploy_id
             print(json.dumps(deploy_body, indent=4))
-            # while status_code != 200:
-            #     time.sleep(2)
-            #     resp = requests.post(endpoint + '/deploys', data=json.dumps(deploy_body),
-            #                          headers={'Content-Type': 'application/json'})
-            #     status_code = resp.status_code
+            while status_code != 200:
+                time.sleep(2)
+                resp = requests.post(endpoint + '/deploys', data=json.dumps(deploy_body),
+                                     headers={'Content-Type': 'application/json'})
+                status_code = resp.status_code
 
             print("Deployed '{}' successfully.".format(deploy_id))
-            # print(json.dumps(resp.json(), indent=4))
-            return True
-        return False
+            print(json.dumps(resp.json(), indent=4))

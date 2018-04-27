@@ -13,7 +13,8 @@ x-compose-paas:
     fetch:
       uri: 'file:///etc/docker.tar.gz'
     resource_roles:
-      - public
+      - '*'
+    id: '/service/name'
   docker:
     params:
       entrypoint: 'run_web_api.sh'
@@ -27,16 +28,6 @@ services:
     command: ''
     image: example/my_web_app:latest
     network_mode: "bridge"
-    labels:
-      mesos.singularity.admin_email: 'admin@email.com'
-      mesos.singularity.endpoint: 'http://prd.net/singularity/api'
-      mesos.singularity.slave.placement: ''
-      mesos.singularity.cron.schedule: ''
-      mesos.singularity.docker.params.entrypoint: 'run_web_api.sh'
-      mesos.singularity.docker.forcepull: 'false'
-      mesos.singularity.resources.cpus: '0.1'
-      mesos.singularity.resources.memory: '1024'
-      mesos.marathon.fetch.uri: 'file:///etc/docker.tar.gz'
     entrypoint: run_web_api.sh
 
   db:

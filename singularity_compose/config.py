@@ -25,7 +25,7 @@ def combine_props_to_dict(parent_dict, pattern):
 
 class Config(object):
 
-    def __init__(self, config_file, service_name, override_file=None, force_pull=None):
+    def __init__(self, config_file, service_name, platform, override_file=None, force_pull=None):
         self._data = None
 
         with open(config_file) as config:
@@ -75,11 +75,14 @@ class Config(object):
                             mapping['hostPort'] = port_index
                             mapping['containerPort'] = int(matches.group(1))
                             mapping['protocol'] = matches.group(2) if matches.group(2) else 'tcp'
-                            mapping['containerPortType'] = 'LITERAL'
-                            mapping['hostPortType'] = 'FROM_OFFER'
+                            if platform == 'singularity':
+                                mapping['containerPortType'] = 'LITERAL'
+                                mapping['hostPortType'] = 'FROM_OFFER'
+                            elif platform == 'marathon':
+                                mapping['name'] = "default"
                             port_mappings.append(mapping)
                             port_index += 1
-        self._data["portMappings"] = port_mappings
+        self._data["port_mappings"] = port_mappings
 
         # Placement constraints
         host_attributes = {}
@@ -109,7 +112,9 @@ class Config(object):
             marathon_data = x_compose_paas.get('marathon', None)
             if marathon_data:
                 self._data['marathon_fetch'] = marathon_data.get('fetch', {})
-                self._data['marathon_resource_roles'] = marathon_data.get('resource_roles', [])
+                self._data['marathon_resource_roles'] = marathon_data.get('resource_roles', ['*'])
+                self._data['marathon_id'] = marathon_data.get('id', '')
+                self._data['marathon_endpoint'] = marathon_data.get('endpoint', '')
 
             # Resources
             resources_data = x_compose_paas.get('resources', None)
