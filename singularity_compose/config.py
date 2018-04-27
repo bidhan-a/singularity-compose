@@ -96,7 +96,7 @@ class Config(object):
         x_compose_paas = config_obj.get('x-compose-paas', None)
         if x_compose_paas:
             # Singularity
-            singularity_data = x_compose_paas.get('x-singularity', None)
+            singularity_data = x_compose_paas.get('singularity', None)
             if singularity_data:
                 self._data["singularity_email"] = singularity_data.get('admin_email', '')
                 self._data["singularity_endpoint"] = singularity_data.get('endpoint', '')
@@ -106,13 +106,13 @@ class Config(object):
                 self._data['cron_schedule'] = singularity_data.get('cron_schedule', '')
 
             # Marathon
-            marathon_data = x_compose_paas.get('x-marathon', None)
+            marathon_data = x_compose_paas.get('marathon', None)
             if marathon_data:
                 self._data['marathon_fetch'] = marathon_data.get('fetch', {})
                 self._data['marathon_resource_roles'] = marathon_data.get('resource_roles', [])
 
             # Resources
-            resources_data = x_compose_paas.get('x-resources', None)
+            resources_data = x_compose_paas.get('resources', None)
             if resources_data:
                 self._data['cpus'] = float(resources_data.get('cpus', '0'))
                 self._data['memory'] = float(resources_data.get('memory', '0'))
@@ -120,7 +120,7 @@ class Config(object):
                 self._data['num_ports'] = int(resources_data.get('numports', '0'))
 
             # Docker
-            docker_data = x_compose_paas.get('x-docker', None)
+            docker_data = x_compose_paas.get('docker', None)
             if docker_data:
                 if force_pull and force_pull in ['true', 'false']:
                     forcepull = force_pull
