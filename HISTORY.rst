@@ -32,3 +32,8 @@ History
 
 * Rename package to compose-paas from singularity-compose
 * Add support for Marathon
+
+1.0.2 (2018-04-27)
+------------------
+
+* Fix setup.py (add sub-package to packages list)
