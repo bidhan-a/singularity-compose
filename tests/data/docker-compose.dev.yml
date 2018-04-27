@@ -1,7 +1,9 @@
 version: '3.4'
 
-x-singularity:
-  endpoint: 'http://localhost:7099/singularity/api'
+x-compose-paas:
+  singularity:
+    endpoint: 'http://localhost:7099/singularity/api'
+
 
 services:
   api:

@@ -92,42 +92,43 @@ class Config(object):
             pass
         self._data["host_attributes"] = host_attributes
 
-        # Extract data from extension fields (previously labels were used)
+        # Extract data from extension field (previously labels were used)
+        x_compose_paas = config_obj.get('x-compose-paas', None)
+        if x_compose_paas:
+            # Singularity
+            singularity_data = x_compose_paas.get('x-singularity', None)
+            if singularity_data:
+                self._data["singularity_email"] = singularity_data.get('admin_email', '')
+                self._data["singularity_endpoint"] = singularity_data.get('endpoint', '')
+                # Slave placement
+                self._data['slave_placement'] = singularity_data.get('slave_placement', '')
+                # Cron schedule
+                self._data['cron_schedule'] = singularity_data.get('cron_schedule', '')
 
-        # Singularity
-        singularity_data = config_obj.get('x-singularity', None)
-        if singularity_data:
-            self._data["singularity_email"] = singularity_data.get('admin_email', '')
-            self._data["singularity_endpoint"] = singularity_data.get('endpoint', '')
-            # Slave placement
-            self._data['slave_placement'] = singularity_data.get('slave_placement', '')
-            # Cron schedule
-            self._data['cron_schedule'] = singularity_data.get('cron_schedule', '')
+            # Marathon
+            marathon_data = x_compose_paas.get('x-marathon', None)
+            if marathon_data:
+                self._data['marathon_fetch'] = marathon_data.get('fetch', {})
+                self._data['marathon_resource_roles'] = marathon_data.get('resource_roles', [])
 
-        # Marathon
-        marathon_data = config_obj.get('x-marathon', None)
-        if marathon_data:
-            self._data['marathon_fetch'] = marathon_data.get('fetch', {})
-            self._data['marathon_resource_roles'] = marathon_data.get('resource_roles', [])
+            # Resources
+            resources_data = x_compose_paas.get('x-resources', None)
+            if resources_data:
+                self._data['cpus'] = float(resources_data.get('cpus', '0'))
+                self._data['memory'] = float(resources_data.get('memory', '0'))
+                self._data['disk'] = float(resources_data.get('disk', '0'))
+                self._data['num_ports'] = int(resources_data.get('numports', '0'))
 
-        # Resources
-        resources_data = config_obj.get('x-resources', None)
-        if resources_data:
-            self._data['cpus'] = float(resources_data.get('cpus', '0'))
-            self._data['memory'] = float(resources_data.get('memory', '0'))
-            self._data['disk'] = float(resources_data.get('disk', '0'))
-            self._data['num_ports'] = int(resources_data.get('numports', '0'))
+            # Docker
+            docker_data = x_compose_paas.get('x-docker', None)
+            if docker_data:
+                if force_pull and force_pull in ['true', 'false']:
+                    forcepull = force_pull
+                else:
+                    forcepull = docker_data.get('forcepull', 'false')
 
-        # Docker
-        docker_data = config_obj.get('x-docker', None)
-        if docker_data:
-            if force_pull and force_pull in ['true', 'false']:
-                forcepull = force_pull
-            else:
-                forcepull = docker_data.get('forcepull', 'false')
-
-            self._data['force_pull_image'] = True if forcepull == 'true' else False
-            self._data['docker_params'] = docker_data.get('params', {})
+                self._data['force_pull_image'] = True if forcepull == 'true' else False
+                self._data['docker_params'] = docker_data.get('params', {})
 
         # Arguments (split `command`)
         command = self._data.get('command', None)
