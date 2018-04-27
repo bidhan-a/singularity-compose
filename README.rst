@@ -49,7 +49,7 @@ compose-paas supports five arguments:
 Options
 -------
 
-compose-paas uses the `x-compose-paas` extension field in the docker-compose file
+``compose-paas`` uses the ``x-compose-paas`` extension field in the docker-compose file
 to read platform-specific as well as other general options. The following example
 contains all the supported options:
 
