@@ -27,7 +27,7 @@ History
 
 * Use different fields for command and arguments
 
-1.1.4 (2018-04-27)
+1.0.1 (2018-04-27)
 ------------------
 
 * Rename package to compose-paas from singularity-compose
