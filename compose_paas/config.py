@@ -49,7 +49,8 @@ class Config(object):
         if vols:
             for vol in vols:
                 items = vol.split(":")
-                volumes.append({'hostPath': items[0], 'containerPath': items[1], 'mode': 'RW'})
+                mode = items[2].upper() if len(items) == 3 else 'RW'
+                volumes.append({'hostPath': items[0], 'containerPath': items[1], 'mode': mode})
             self._data["volumes"] = volumes
 
         # Ports (Add if network_mode is not "host")

@@ -35,4 +35,10 @@ def test_config(response):
 
     assert config.arguments == ['buildno=1']
 
+    assert config.volumes == [{
+        'hostPath': '.',
+        'containerPath': '/code',
+        'mode': 'RW'
+    }]
+
 
