@@ -37,3 +37,8 @@ History
 ------------------
 
 * Fix setup.py (add sub-package to packages list)
+
+1.0.3 (2018-05-14)
+------------------
+
+* Add support for volumes mode
