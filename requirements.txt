@@ -9,7 +9,7 @@ Sphinx==1.8.3
 
 
 pytest==4.1.0
-pytest-runner==4.2
+pytest-runner==4.4
 PyYAML==3.13
 requests==2.21.0
 six==1.11.0
